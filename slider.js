@@ -3,27 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const thumb = document.getElementById("thumb");
     const priceDisplay = document.getElementById("price");
 
-    const min = 50000;  // Minimum value
-    const max = 10000000;  // Maximum value
+    const min = 50000; // Minimum slider value
+    const max = 10000000; // Maximum slider value
     const sliderWidth = slider.offsetWidth;
 
     let value = 400000; // Default value
 
-    // Update the position of the thumb and display value
+    // Function to update the slider position and value
     function updateSlider(position) {
-        const percentage = Math.max(0, Math.min(position / sliderWidth, 1)); // Clamp between 0 and 1
+        const percentage = Math.max(0, Math.min(position / sliderWidth, 1)); // Clamp percentage between 0 and 1
         value = Math.round(min + percentage * (max - min));
         const thumbPosition = percentage * sliderWidth;
 
+        // Update the thumb position and displayed value
         thumb.style.left = `${thumbPosition}px`;
         priceDisplay.textContent = `$${value.toLocaleString()}`;
     }
 
-    // Initialize the slider position
+    // Initialize the slider position based on the default value
     const initialPercentage = (value - min) / (max - min);
     updateSlider(initialPercentage * sliderWidth);
 
-    // Mouse event handlers
+    // Handle dragging the thumb
     thumb.addEventListener("mousedown", (event) => {
         const startX = event.clientX;
         const startLeft = thumb.offsetLeft;
