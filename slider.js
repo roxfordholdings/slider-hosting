@@ -21,11 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Initialize the slider position based on the default value
-    const initialPercentage = (value - min) / (max - min);
-    updateSlider(initialPercentage * sliderWidth);
+    function initializeSlider() {
+        const initialPercentage = (value - min) / (max - min);
+        const initialPosition = initialPercentage * sliderWidth;
+        updateSlider(initialPosition); // Ensure alignment
+    }
 
-    // Handle dragging the thumb
+    initializeSlider(); // Set initial thumb position and value
+
+    // Handle dragging
     thumb.addEventListener("mousedown", (event) => {
+        event.preventDefault(); // Prevent text selection
+
         const startX = event.clientX;
         const startLeft = thumb.offsetLeft;
 
@@ -44,11 +51,4 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("mousemove", onMouseMove);
         document.addEventListener("mouseup", onMouseUp);
     });
-
-    // Fix for compatibility: Handle cases where `includes` is used incorrectly
-    if (!Array.prototype.includes) {
-        Array.prototype.includes = function (value) {
-            return this.indexOf(value) !== -1;
-        };
-    }
 });
