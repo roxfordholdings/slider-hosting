@@ -44,4 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("mousemove", onMouseMove);
         document.addEventListener("mouseup", onMouseUp);
     });
+
+    // Fix for compatibility: Handle cases where `includes` is used incorrectly
+    if (!Array.prototype.includes) {
+        Array.prototype.includes = function (value) {
+            return this.indexOf(value) !== -1;
+        };
+    }
 });
