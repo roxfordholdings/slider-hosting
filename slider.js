@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const min = 50000; // Minimum slider value
     const max = 10000000; // Maximum slider value
+    const step = 5000; // Increment/decrement step
     const sliderWidth = slider.offsetWidth;
 
     let value = 400000; // Default value
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to update the slider position and value
     function updateSlider(position) {
         const percentage = Math.max(0, Math.min(position / sliderWidth, 1)); // Clamp percentage between 0 and 1
-        value = Math.round(min + percentage * (max - min));
+        value = Math.round((min + percentage * (max - min)) / step) * step; // Round to nearest step
         const thumbPosition = percentage * sliderWidth;
 
         // Update the thumb position and displayed value
